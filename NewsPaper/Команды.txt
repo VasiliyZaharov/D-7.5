@@ -1,0 +1,178 @@
+1. Создать двух пользователей (с помощью метода User.objects.create_user('username'))
+
+u1 = User.objects.create_user(username='Vasiliy')
+u2 = User.objects.create_user(username='Elena')
+
+2. Создать два объекта модели Author, связанные с пользователями.
+
+Author.objects.create(authorUser=u1)
+Author.objects.create(authorUser=u2)
+
+3. Добавить 4 категории в модель Category.
+
+Category.objects.create(name='sport') 
+Category.objects.create(name='politics')  
+Category.objects.create(name='science')  
+Category.objects.create(name='IT')  
+
+4. Добавить 2 статьи и 1 новость.
+
+author_1 = Author.objects.get(id=1) 
+Post.objects.create(author=author_1, categoryType='NW', title='sometitle_1', text='sometext_1')
+Post.objects.create(author=author_1, categoryType='AR', title='sometitle_2', text='sometext_2')
+
+author_2 = Author.objects.get(id=2) 
+Post.objects.create(author=author_2, categoryType='AR', title='sometitle_3', text='sometext_3')
+
+5. Присвоить им категории (как минимум в одной статье/новости должно быть не меньше 2 категорий).
+
+Post.objects.get(id=1).postCategory.add(Category.objects.get(id=1))
+Post.objects.get(id=1).postCategory.add(Category.objects.get(id=3)) 
+Post.objects.get(id=2).postCategory.add(Category.objects.get(id=4)) 
+Post.objects.get(id=2).postCategory.add(Category.objects.get(id=3)) 
+Post.objects.get(id=3).postCategory.add(Category.objects.get(id=2)) 
+Post.objects.get(id=3).postCategory.add(Category.objects.get(id=1))
+
+6. Создать как минимум 4 комментария к разным объектам модели Post (в каждом объекте должен быть как минимум один комментарий).
+
+Comment.objects.create(commentPost=Post.objects.get(id=1), commentUser=Author.objects.get(id=1).authorUser, text='anytext_1')
+Comment.objects.create(commentPost=Post.objects.get(id=1), commentUser=Author.objects.get(id=2).authorUser, text='anytext_2')
+Comment.objects.create(commentPost=Post.objects.get(id=2), commentUser=Author.objects.get(id=2).authorUser, text='anytext_3')
+Comment.objects.create(commentPost=Post.objects.get(id=3), commentUser=Author.objects.get(id=2).authorUser, text='anytext_4')
+
+7. Применяя функции like() и dislike() к статьям/новостям и комментариям, скорректировать рейтинги этих объектов.
+
+>>> Comment.objects.get(id=1).like()
+>>> Comment.objects.get(id=1).like()
+>>> Comment.objects.get(id=1).like()
+>>> Comment.objects.get(id=1).like()
+>>> Comment.objects.get(id=1).like()
+>>> Comment.objects.get(id=1).like()
+>>> Comment.objects.get(id=1).like()
+>>> Comment.objects.get(id=1).like()
+>>> Comment.objects.get(id=1).like()
+>>> Comment.objects.get(id=1).like()
+>>> Comment.objects.get(id=2).like() 
+>>> Comment.objects.get(id=2).like()
+>>> Comment.objects.get(id=2).like()
+>>> Comment.objects.get(id=2).like()
+>>> Comment.objects.get(id=2).like()
+>>> Comment.objects.get(id=2).like()
+>>> Comment.objects.get(id=2).like()
+>>> Comment.objects.get(id=2).like()
+>>> Comment.objects.get(id=2).like()
+>>> Comment.objects.get(id=2).like()
+>>> Comment.objects.get(id=3).like() 
+>>> Comment.objects.get(id=3).like()
+>>> Comment.objects.get(id=3).like()
+>>> Comment.objects.get(id=3).like()
+>>> Comment.objects.get(id=3).like()
+>>> Comment.objects.get(id=3).like()
+>>> Comment.objects.get(id=3).like()
+>>> Comment.objects.get(id=3).like()
+>>> Comment.objects.get(id=3).like()
+>>> Comment.objects.get(id=3).like()
+>>> Comment.objects.get(id=3).like()
+>>> Comment.objects.get(id=3).like()
+>>> Comment.objects.get(id=3).like()
+>>> Comment.objects.get(id=3).like()
+>>> Comment.objects.get(id=3).like()
+>>> Comment.objects.get(id=4).like() 
+>>> Comment.objects.get(id=4).like()
+>>> Comment.objects.get(id=4).like()
+>>> Comment.objects.get(id=4).like()
+>>> Comment.objects.get(id=4).like()
+>>> Comment.objects.get(id=4).like()
+>>> Comment.objects.get(id=1).dislike()
+>>> Comment.objects.get(id=1).dislike()
+>>> Comment.objects.get(id=1).dislike()
+>>> Comment.objects.get(id=2).dislike() 
+>>> Comment.objects.get(id=3).dislike() 
+>>> Comment.objects.get(id=3).dislike() 
+>>> Comment.objects.get(id=4).dislike()
+
+>>> Comment.objects.get(id=1).rating  
+7
+>>> Comment.objects.get(id=2).rating  
+9
+>>> Comment.objects.get(id=3).rating 
+13
+>>> Comment.objects.get(id=4).rating 
+5
+
+
+>>> Post.objects.get(id=1).like()    
+>>> Post.objects.get(id=1).like()
+>>> Post.objects.get(id=1).like()
+>>> Post.objects.get(id=1).like()
+>>> Post.objects.get(id=1).like()
+>>> Post.objects.get(id=1).like()
+>>> Post.objects.get(id=1).like()
+>>> Post.objects.get(id=1).like()
+>>> Post.objects.get(id=1).like()
+>>> Post.objects.get(id=1).like()
+>>> Post.objects.get(id=1).dislike()
+>>> Post.objects.get(id=1).dislike()
+>>> Post.objects.get(id=1).dislike()
+>>> Post.objects.get(id=1).dislike()
+>>> Post.objects.get(id=1).dislike()
+>>> Post.objects.get(id=1).dislike()
+>>> Post.objects.get(id=2).like()    
+>>> Post.objects.get(id=2).like()
+>>> Post.objects.get(id=2).like()
+>>> Post.objects.get(id=2).like()
+>>> Post.objects.get(id=2).like()
+>>> Post.objects.get(id=2).like()
+>>> Post.objects.get(id=2).like()
+>>> Post.objects.get(id=2).dislike() 
+>>> Post.objects.get(id=2).dislike()
+>>> Post.objects.get(id=2).dislike()
+>>> Post.objects.get(id=2).dislike()
+>>> Post.objects.get(id=2).dislike()
+>>> Post.objects.get(id=2).dislike()
+>>> Post.objects.get(id=2).dislike()
+>>> Post.objects.get(id=2).dislike()
+>>> Post.objects.get(id=2).dislike()
+>>> Post.objects.get(id=2).dislike()
+>>> Post.objects.get(id=2).dislike()
+>>> Post.objects.get(id=3).dislike() 
+>>> Post.objects.get(id=3).dislike()
+>>> Post.objects.get(id=3).dislike()
+>>> Post.objects.get(id=3).dislike()
+>>> Post.objects.get(id=3).dislike()
+>>> Post.objects.get(id=3).dislike()
+>>> Post.objects.get(id=3).dislike()
+>>> Post.objects.get(id=3).dislike()
+>>> Post.objects.get(id=3).dislike()
+>>> Post.objects.get(id=3).dislike()
+>>> Post.objects.get(id=3).like()    
+>>> Post.objects.get(id=3).like()
+>>> Post.objects.get(id=3).like()
+>>> Post.objects.get(id=3).like()
+>>> Post.objects.get(id=3).like()
+
+>>> Post.objects.get(id=1).rating    
+4
+>>> Post.objects.get(id=2).rating  
+-4  
+>>> Post.objects.get(id=3).rating  
+-5 
+
+9. Вывести username и рейтинг лучшего пользователя (применяя сортировку и возвращая поля первого объекта).
+
+Author.objects.order_by('-ratingAuthor')[:1].values('ratingAuthor')
+
+10. Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи, основываясь на лайках/дислайках к этой статье.
+
+Post.objects.order_by('-rating')[:1].values('dateCreation', 'author', 'rating', 'title').preview()
+
+11. Вывести все комментарии (дата, пользователь, рейтинг, текст) к этой статье.
+
+Comment.objects.values('dateCreation', 'commentUser', 'rating', 'text') 
+
+QuerySet [{'dateCreation': datetime.datetime(2022, 11, 9, 9, 49, 12, 686283, tzinfo=datetime.timezone.utc), 'commentUser': 1, 'rating': 7, 'text': 'anytex
+t_1'}, {'dateCreation': datetime.datetime(2022, 11, 9, 9, 49, 55, 379397, tzinfo=datetime.timezone.utc), 'commentUser': 2, 'rating': 9, 'text': 'anytext_2'
+}, {'dateCreation': datetime.datetime(2022, 11, 9, 9, 50, 12, 639134, tzinfo=datetime.timezone.utc), 'commentUser': 2, 'rating': 13, 'text': 'anytext_3'}, 
+{'dateCreation': datetime.datetime(2022, 11, 9, 9, 50, 29, 691679, tzinfo=datetime.timezone.utc), 'commentUser': 2, 'rating': 5, 'text': 'anytext_4'}]> 
+ 
+
